@@ -13,6 +13,8 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <!-- Paper Noise Overlay -->
+    <div class="noise-overlay"></div>
     
     <!-- Graphic Design Accents -->
     <div class="watermark reveal-element">ARTIGAMI</div>
@@ -62,15 +64,19 @@
                 <h2 class="spatial-title">Zarafetin<br>Görkemle<br>Buluşması</h2>
                 <p class="spatial-desc">Modern lobi alanları, kurumsal etkinlikler ve VIP davetler için tasarlanan dev ölçekli lotus enstalasyonları. Bulunduğu ortamda organik bir canlılık etkisi yaratırken, markanın sofistike kimliğini yansıtır.</p>
             </div>
-            <div class="spatial-image reveal-element">
-                <img src="yelizsayginar_1599496805_2393075108886515152_6373870947.jpg" alt="Corporate Event Installation">
+            <div class="spatial-image-container">
+                <div class="spatial-image">
+                    <img src="yelizsayginar_1599496805_2393075108886515152_6373870947.jpg" alt="Corporate Event Installation">
+                </div>
             </div>
         </div>
 
         <!-- Layout 2: Left Image, Right Text -->
         <div class="spatial-grid reverse">
-            <div class="spatial-image reveal-element">
-                <img src="yelizsayginar_1636611478_2704415552337856149_6373870947.jpg" alt="Abstract Spatial Art">
+            <div class="spatial-image-container">
+                <div class="spatial-image">
+                    <img src="yelizsayginar_1636611478_2704415552337856149_6373870947.jpg" alt="Abstract Spatial Art">
+                </div>
             </div>
             <div class="spatial-text">
                 <span class="section-label">Mimari Bütünleşme</span>
@@ -101,5 +107,10 @@
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
