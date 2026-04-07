@@ -130,58 +130,73 @@ document.addEventListener("DOMContentLoaded", () => {
     // Navbar Drop
     .fromTo('.navbar', { y: -50, opacity: 0 }, { y: 0, opacity: 1, duration: 1.5, ease: "power3.out" }, "-=1.5");
 
-    // 7. Scroll Animations
+    // 7. Scroll Animations (3D Origami Folds)
 
-    // Vision Statement
+    // Vision Statement (Folds down like paper blinds)
     gsap.fromTo('.vision-quote-mark',
-        { scale: 0.5, opacity: 0, y: 150 },
-        { scrollTrigger: { trigger: '.vision-section', start: "top 75%" }, scale: 1, opacity: 1, y: 0, duration: 2.5, ease: "expo.out" }
+        { scale: 0.5, opacity: 0, rotationX: 45, y: 150 },
+        { scrollTrigger: { trigger: '.vision-section', start: "top 75%" }, scale: 1, opacity: 1, rotationX: 0, y: 0, duration: 2.5, ease: "expo.out" }
     );
+    gsap.set('.vision-statement .line-mask span', { y: 0, rotationX: -90, opacity: 0, transformOrigin: "top center" });
     gsap.to('.vision-statement .line-mask span', {
         scrollTrigger: { trigger: '.vision-section', start: "top 65%" },
-        y: "0%", duration: 1.5, stagger: 0.1, ease: "expo.out"
+        rotationX: 0, opacity: 1, duration: 1.8, stagger: 0.15, ease: "expo.out"
     });
+    gsap.set('.vision-signature .line-mask span', { y: 0, rotationX: -90, opacity: 0, transformOrigin: "top center" });
     gsap.to('.vision-signature .line-mask span', {
         scrollTrigger: { trigger: '.vision-section', start: "top 50%" },
-        y: "0%", duration: 1.5, ease: "expo.out", delay: 0.5
+        rotationX: 0, opacity: 1, duration: 1.5, ease: "expo.out", delay: 0.5
     });
 
-    // Spatial Art - Clip Path Reveals & Parallax
+    // Spatial Art - 3D Origami Unfold & Parallax
     const spatialGrids = document.querySelectorAll('.spatial-grid');
     spatialGrids.forEach(grid => {
         const imgContainer = grid.querySelector('.spatial-image-container');
         const img = grid.querySelector('.spatial-image');
+        const shadow = grid.querySelector('.fold-shadow');
         const titleSpans = grid.querySelectorAll('.spatial-title .line-mask span');
         const descSpans = grid.querySelectorAll('.spatial-desc .line-mask span');
         const label = grid.querySelector('.section-label');
+
+        // Initial Folded State
+        gsap.set(img, { rotationX: 85, y: 100, opacity: 0, transformOrigin: "center bottom" });
+        if(shadow) gsap.set(shadow, { opacity: 1 });
+        
+        gsap.set(titleSpans, { y: 0, rotationX: -90, opacity: 0, transformOrigin: "top center" });
+        gsap.set(descSpans, { y: 0, rotationX: -90, opacity: 0, transformOrigin: "top center" });
 
         const gridTl = gsap.timeline({
             scrollTrigger: { trigger: grid, start: "top 65%" }
         });
 
-        // Clip-path unfold reveal for images
-        gridTl.to(imgContainer, { clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)", duration: 1.8, ease: "expo.inOut" })
-              .fromTo(img, { scale: 1.3 }, { scale: 1, duration: 1.8, ease: "expo.inOut" }, "-=1.8")
-              .fromTo(label, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out" }, "-=1.2")
-              .to(titleSpans, { y: "0%", duration: 1.5, stagger: 0.1, ease: "expo.out" }, "-=1")
-              .to(descSpans, { y: "0%", duration: 1.2, stagger: 0.05, ease: "expo.out" }, "-=1.2");
+        // The Unfold Animation
+        gridTl.to(img, { rotationX: 0, y: 0, opacity: 1, duration: 2.2, ease: "power4.out" })
+              .to(shadow, { opacity: 0, duration: 2.2, ease: "power4.out" }, "<")
+              .fromTo(label, { opacity: 0, x: -30 }, { opacity: 1, x: 0, duration: 1, ease: "power3.out" }, "-=1.5")
+              .to(titleSpans, { rotationX: 0, opacity: 1, duration: 1.8, stagger: 0.12, ease: "expo.out" }, "-=1.6")
+              .to(descSpans, { rotationX: 0, opacity: 1, duration: 1.5, stagger: 0.08, ease: "expo.out" }, "-=1.5");
 
-        // Subtle Parallax on scroll
-        gsap.to(img, {
-            yPercent: 30,
-            ease: "none",
-            scrollTrigger: { trigger: imgContainer, start: "top bottom", end: "bottom top", scrub: true }
-        });
+        // Subtle Parallax on scroll (adjusting the image inside the folded wrapper)
+        const parallaxImg = img.querySelector('.parallax-img');
+        if(parallaxImg) {
+            gsap.to(parallaxImg, {
+                yPercent: 25,
+                ease: "none",
+                scrollTrigger: { trigger: imgContainer, start: "top bottom", end: "bottom top", scrub: true }
+            });
+        }
     });
 
-    // Footer Reveal
+    // Footer Reveal (Massive 3D Fold up)
+    gsap.set('.footer-heading .line-mask span', { y: 0, rotationX: -90, opacity: 0, transformOrigin: "bottom center" });
+    
     const footerTl = gsap.timeline({
         scrollTrigger: { trigger: '.footer', start: "top 60%" }
     });
 
-    footerTl.to('.footer-heading .line-mask span', { y: "0%", duration: 1.5, stagger: 0.1, ease: "expo.out" })
-            .to('.footer-email', { opacity: 1, y: 0, duration: 1, ease: "power3.out" }, "-=1")
+    footerTl.to('.footer-heading .line-mask span', { rotationX: 0, opacity: 1, duration: 1.8, stagger: 0.1, ease: "expo.out" })
+            .fromTo('.footer-email', { opacity: 0, rotationX: -90, transformOrigin: "bottom center" }, { opacity: 1, rotationX: 0, duration: 1.5, ease: "expo.out" }, "-=1.2")
             .fromTo('.social-list a', { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=1")
-            .to('.footer-massive', { y: "0%", opacity: 1, duration: 2.5, ease: "expo.out" }, "-=1.5");
+            .fromTo('.footer-massive', { rotationX: 45, y: 100, opacity: 0 }, { rotationX: 0, y: 0, opacity: 1, duration: 2.5, ease: "expo.out" }, "-=1.5");
 
 });
