@@ -144,6 +144,8 @@ h1, h2, h3, .brand-logo { font-family: var(--font-heading); font-weight: 400; }
 .nav-links a { text-decoration: none; color: inherit; font-size: 0.85rem; font-weight: 500; letter-spacing: 2px; text-transform: uppercase;}
 .btn-outline { border: 1px solid rgba(255,255,255,0.4); padding: 1rem 2rem; border-radius: 50px; transition: background 0.4s, color 0.4s; }
 .btn-outline:hover { background: #fff; color: #000; }
+.btn-primary { background: #fff; color: #000 !important; border: 1px solid #fff; padding: 1rem 2rem; border-radius: 50px; transition: transform 0.4s, background 0.4s; }
+.btn-primary:hover { background: var(--color-bg); border-color: var(--color-bg); }
 
 /* =========================================================================
    HERO
